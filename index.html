@@ -1,0 +1,3174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <base target="_top">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Citrine Eats</title>
+
+
+  <style>
+
+    :root {
+
+      --citrine: #F4C430;
+      --citrine-light: #FFF4B8;
+      --citrine-pale: #FFFBE8;
+
+      --orange: #F59E0B;
+      --orange-dark: #D97706;
+
+      --cream: #FBFAF5;
+      --white: #FFFFFF;
+
+      --text: #1D1D1F;
+      --muted: #6E6E73;
+
+      --border:
+        rgba(0,0,0,0.07);
+
+      --shadow:
+        0 10px 35px
+        rgba(0,0,0,0.07);
+
+      --shadow-hover:
+        0 20px 55px
+        rgba(0,0,0,0.11);
+
+      --radius: 24px;
+
+    }
+
+
+    * {
+      box-sizing:
+        border-box;
+    }
+
+
+    html {
+      scroll-behavior:
+        smooth;
+    }
+
+
+    body {
+
+      margin:
+        0;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+      background:
+        var(--cream);
+
+      color:
+        var(--text);
+
+      -webkit-font-smoothing:
+        antialiased;
+
+    }
+
+
+    button,
+    input,
+    textarea {
+      font:
+        inherit;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+
+      position:
+        sticky;
+
+      top:
+        0;
+
+      z-index:
+        100;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.82
+        );
+
+      backdrop-filter:
+        blur(22px);
+
+      -webkit-backdrop-filter:
+        blur(22px);
+
+      border-bottom:
+        1px solid
+        rgba(
+          0,
+          0,
+          0,
+          0.06
+        );
+
+    }
+
+
+    .header-inner {
+
+      max-width:
+        1240px;
+
+      margin:
+        auto;
+
+      padding:
+        16px 28px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+    }
+
+
+    .logo {
+
+      font-size:
+        1.15rem;
+
+      font-weight:
+        800;
+
+      letter-spacing:
+        -0.6px;
+
+    }
+
+
+    .logo span {
+      color:
+        var(--orange);
+    }
+
+
+    .cart-button {
+
+      border:
+        none;
+
+      background:
+        var(--text);
+
+      color:
+        white;
+
+      padding:
+        10px 17px;
+
+      border-radius:
+        999px;
+
+      font-weight:
+        700;
+
+      cursor:
+        pointer;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        7px;
+
+      transition:
+        transform .2s ease,
+        background .2s ease;
+
+    }
+
+
+    .cart-button:hover {
+
+      transform:
+        scale(1.03);
+
+      background:
+        #000;
+
+    }
+
+
+    #cartCount {
+
+      background:
+        var(--citrine);
+
+      color:
+        var(--text);
+
+      min-width:
+        21px;
+
+      height:
+        21px;
+
+      padding:
+        0 6px;
+
+      border-radius:
+        999px;
+
+      display:
+        inline-flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      font-size:
+        .75rem;
+
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+
+      background:
+
+        radial-gradient(
+          circle at 80% 20%,
+          #FFE36E 0%,
+          transparent 30%
+        ),
+
+        linear-gradient(
+          135deg,
+          #FFFBE8,
+          #FFF1B0
+        );
+
+      min-height:
+        470px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      padding:
+        70px 28px;
+
+      overflow:
+        hidden;
+
+    }
+
+
+    .hero-inner {
+
+      max-width:
+        1240px;
+
+      width:
+        100%;
+
+      margin:
+        auto;
+
+    }
+
+
+    .eyebrow {
+
+      display:
+        inline-flex;
+
+      align-items:
+        center;
+
+      gap:
+        7px;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          .65
+        );
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          .8
+        );
+
+      padding:
+        8px 13px;
+
+      border-radius:
+        999px;
+
+      font-size:
+        .8rem;
+
+      font-weight:
+        700;
+
+      margin-bottom:
+        22px;
+
+      backdrop-filter:
+        blur(10px);
+
+    }
+
+
+    .hero h1 {
+
+      margin:
+        0;
+
+      max-width:
+        900px;
+
+      font-size:
+        clamp(
+          3rem,
+          8vw,
+          6.5rem
+        );
+
+      line-height:
+        .92;
+
+      letter-spacing:
+        -5px;
+
+      font-weight:
+        800;
+
+    }
+
+
+    .hero h1 span {
+
+      color:
+        var(--orange);
+
+    }
+
+
+    .hero p {
+
+      margin:
+        25px 0 0;
+
+      max-width:
+        580px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        1.1rem;
+
+      line-height:
+        1.6;
+
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    main {
+
+      max-width:
+        1240px;
+
+      margin:
+        auto;
+
+      padding:
+        65px 28px 100px;
+
+    }
+
+
+    .section-title {
+
+      margin:
+        0 0 10px;
+
+      font-size:
+        2rem;
+
+      letter-spacing:
+        -1px;
+
+    }
+
+
+    .section-subtitle {
+
+      margin:
+        0 0 40px;
+
+      color:
+        var(--muted);
+
+    }
+
+
+    /* =========================
+       CATEGORY
+    ========================= */
+
+    .category-block {
+
+      margin-bottom:
+        58px;
+
+    }
+
+
+    .category-heading {
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        16px;
+
+      margin:
+        0 0 22px;
+
+    }
+
+
+    /*
+     * BIGGER CATEGORY HEADINGS
+     */
+
+    .category-heading h2 {
+
+      margin:
+        0;
+
+      font-size:
+        clamp(
+          1.8rem,
+          4vw,
+          2.6rem
+        );
+
+      line-height:
+        1;
+
+      letter-spacing:
+        -1.3px;
+
+      font-weight:
+        800;
+
+    }
+
+
+    .category-line {
+
+      flex:
+        1;
+
+      height:
+        1px;
+
+      background:
+        var(--border);
+
+    }
+
+
+    .category-pill {
+
+      background:
+        var(--citrine-light);
+
+      color:
+        var(--orange-dark);
+
+      padding:
+        7px 11px;
+
+      border-radius:
+        999px;
+
+      font-size:
+        .7rem;
+
+      font-weight:
+        800;
+
+      text-transform:
+        uppercase;
+
+    }
+
+
+    /* =========================
+       MENU
+    ========================= */
+
+    .menu-grid {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(
+            270px,
+            1fr
+          )
+        );
+
+      gap:
+        17px;
+
+    }
+
+
+    .menu-item {
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          .9
+        );
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius:
+        21px;
+
+      padding:
+        20px;
+
+      box-shadow:
+        0 5px 20px
+        rgba(
+          0,
+          0,
+          0,
+          .045
+        );
+
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+    }
+
+
+    .menu-item:hover {
+
+      transform:
+        translateY(-3px);
+
+      box-shadow:
+        0 12px 30px
+        rgba(
+          0,
+          0,
+          0,
+          .08
+        );
+
+    }
+
+
+    .menu-item h3 {
+
+      margin:
+        0 0 8px;
+
+      font-size:
+        1.03rem;
+
+      letter-spacing:
+        -.2px;
+
+    }
+
+
+    .menu-item p {
+
+      color:
+        var(--muted);
+
+      font-size:
+        .88rem;
+
+      line-height:
+        1.5;
+
+      margin:
+        0 0 18px;
+
+    }
+
+
+    .menu-item-bottom {
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      gap:
+        12px;
+
+    }
+
+
+    .price {
+
+      font-weight:
+        800;
+
+      color:
+        var(--orange-dark);
+
+      font-size:
+        .98rem;
+
+    }
+
+
+    .add-button {
+
+      border:
+        none;
+
+      background:
+        var(--citrine);
+
+      color:
+        var(--text);
+
+      border-radius:
+        999px;
+
+      padding:
+        9px 14px;
+
+      font-weight:
+        750;
+
+      cursor:
+        pointer;
+
+      transition:
+        .2s ease;
+
+    }
+
+
+    .add-button:hover {
+
+      background:
+        var(--orange);
+
+      transform:
+        scale(1.04);
+
+    }
+
+
+    /* =========================
+       CART BACKDROP
+    ========================= */
+
+    .cart-backdrop {
+
+      position:
+        fixed;
+
+      inset:
+        0;
+
+      background:
+        rgba(
+          0,
+          0,
+          0,
+          .3
+        );
+
+      backdrop-filter:
+        blur(5px);
+
+      -webkit-backdrop-filter:
+        blur(5px);
+
+      z-index:
+        190;
+
+      opacity:
+        0;
+
+      pointer-events:
+        none;
+
+      transition:
+        opacity .3s ease;
+
+    }
+
+
+    .cart-backdrop.active {
+
+      opacity:
+        1;
+
+      pointer-events:
+        auto;
+
+    }
+
+
+    /* =========================
+       CART
+    ========================= */
+
+    .cart-panel {
+
+      position:
+        fixed;
+
+      right:
+        15px;
+
+      top:
+        15px;
+
+      width:
+        min(
+          430px,
+          calc(
+            100% - 30px
+          )
+        );
+
+      height:
+        calc(
+          100vh - 30px
+        );
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          .94
+        );
+
+      backdrop-filter:
+        blur(30px);
+
+      -webkit-backdrop-filter:
+        blur(30px);
+
+      z-index:
+        200;
+
+      border-radius:
+        28px;
+
+      box-shadow:
+        0 25px 80px
+        rgba(
+          0,
+          0,
+          0,
+          .2
+        );
+
+      padding:
+        26px;
+
+      overflow-y:
+        auto;
+
+      transform:
+        translateX(
+          calc(
+            100% + 30px
+          )
+        );
+
+      transition:
+        transform .35s
+        cubic-bezier(
+          .2,
+          .8,
+          .2,
+          1
+        );
+
+    }
+
+
+    .cart-panel.open {
+
+      transform:
+        translateX(0);
+
+    }
+
+
+    .cart-header {
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      margin-bottom:
+        25px;
+
+    }
+
+
+    .cart-header h2 {
+
+      margin:
+        0;
+
+      font-size:
+        1.6rem;
+
+      letter-spacing:
+        -.8px;
+
+    }
+
+
+    .close-button {
+
+      border:
+        none;
+
+      background:
+        var(--citrine-light);
+
+      width:
+        38px;
+
+      height:
+        38px;
+
+      border-radius:
+        50%;
+
+      cursor:
+        pointer;
+
+      font-size:
+        1.2rem;
+
+    }
+
+
+    .cart-restaurant {
+
+      background:
+        var(--citrine-pale);
+
+      border-radius:
+        15px;
+
+      padding:
+        13px 15px;
+
+      margin-bottom:
+        15px;
+
+      font-size:
+        .9rem;
+
+    }
+
+
+    .cart-item {
+
+      padding:
+        16px 0;
+
+      border-bottom:
+        1px solid
+        var(--border);
+
+    }
+
+
+    .cart-item-top {
+
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      gap:
+        10px;
+
+    }
+
+
+    .cart-item-name {
+
+      font-weight:
+        750;
+
+    }
+
+
+    .cart-category {
+
+      display:
+        inline-block;
+
+      margin-bottom:
+        5px;
+
+      color:
+        var(--orange-dark);
+
+      font-size:
+        .7rem;
+
+      font-weight:
+        800;
+
+      text-transform:
+        uppercase;
+
+    }
+
+
+    .cart-item-price {
+
+      color:
+        var(--muted);
+
+      font-size:
+        .86rem;
+
+      margin-top:
+        5px;
+
+    }
+
+
+    .remove-button {
+
+      border:
+        none;
+
+      background:
+        transparent;
+
+      color:
+        #999;
+
+      cursor:
+        pointer;
+
+      font-size:
+        .8rem;
+
+    }
+
+
+    .cart-total {
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      font-size:
+        1.2rem;
+
+      font-weight:
+        800;
+
+      padding:
+        22px 0;
+
+    }
+
+
+    /* =========================
+       PAYMENT
+    ========================= */
+
+    .payment-box {
+
+      background:
+        var(--citrine-pale);
+
+      border:
+        1px solid
+        var(--citrine);
+
+      border-radius:
+        18px;
+
+      padding:
+        18px;
+
+      margin:
+        10px 0 20px;
+
+    }
+
+
+    .payment-box h3 {
+
+      margin:
+        0 0 12px;
+
+      font-size:
+        1rem;
+
+    }
+
+
+    .payment-row {
+
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      gap:
+        12px;
+
+      padding:
+        6px 0;
+
+      font-size:
+        .87rem;
+
+    }
+
+
+    .payment-label {
+
+      color:
+        var(--muted);
+
+    }
+
+
+    .payment-value {
+
+      font-weight:
+        750;
+
+      text-align:
+        right;
+
+    }
+
+
+    .copy-account {
+
+      margin-top:
+        12px;
+
+      border:
+        none;
+
+      background:
+        var(--citrine);
+
+      padding:
+        9px 12px;
+
+      border-radius:
+        10px;
+
+      font-weight:
+        700;
+
+      cursor:
+        pointer;
+
+    }
+
+
+    /* =========================
+       FORM
+    ========================= */
+
+    .checkout-heading {
+
+      font-size:
+        1rem;
+
+      margin:
+        5px 0 20px;
+
+    }
+
+
+    .form-group {
+
+      margin-bottom:
+        15px;
+
+    }
+
+
+    label {
+
+      display:
+        block;
+
+      font-size:
+        .82rem;
+
+      font-weight:
+        700;
+
+      margin-bottom:
+        7px;
+
+    }
+
+
+    input,
+    textarea {
+
+      width:
+        100%;
+
+      padding:
+        13px 14px;
+
+      border:
+        1px solid
+        rgba(
+          0,
+          0,
+          0,
+          .08
+        );
+
+      border-radius:
+        13px;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          .9
+        );
+
+      color:
+        var(--text);
+
+      outline:
+        none;
+
+      transition:
+        .2s ease;
+
+    }
+
+
+    textarea {
+
+      resize:
+        vertical;
+
+    }
+
+
+    input:focus,
+    textarea:focus {
+
+      border-color:
+        var(--citrine);
+
+      box-shadow:
+        0 0 0 4px
+        var(--citrine-light);
+
+    }
+
+
+    .file-input {
+
+      padding:
+        10px;
+
+      background:
+        white;
+
+    }
+
+
+    .file-help {
+
+      color:
+        var(--muted);
+
+      font-size:
+        .75rem;
+
+      line-height:
+        1.4;
+
+      margin-top:
+        6px;
+
+    }
+
+
+    .place-order-button {
+
+      width:
+        100%;
+
+      border:
+        none;
+
+      border-radius:
+        14px;
+
+      padding:
+        15px;
+
+      background:
+        var(--text);
+
+      color:
+        white;
+
+      font-weight:
+        800;
+
+      cursor:
+        pointer;
+
+      transition:
+        .2s ease;
+
+      margin-top:
+        5px;
+
+    }
+
+
+    .place-order-button:hover {
+
+      background:
+        #000;
+
+      transform:
+        translateY(-1px);
+
+    }
+
+
+    .place-order-button:disabled {
+
+      opacity:
+        .6;
+
+      cursor:
+        wait;
+
+    }
+
+
+    /* =========================
+       SUCCESS
+    ========================= */
+
+    .success-message {
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--citrine-pale),
+          #FFF5C7
+        );
+
+      border:
+        1px solid
+        var(--citrine);
+
+      border-radius:
+        21px;
+
+      padding:
+        22px;
+
+      margin-top:
+        20px;
+
+    }
+
+
+    .success-message h3 {
+
+      margin:
+        0 0 10px;
+
+      color:
+        var(--orange-dark);
+
+    }
+
+
+    .success-message p {
+
+      color:
+        var(--muted);
+
+      line-height:
+        1.5;
+
+    }
+
+
+    .whatsapp-button {
+
+      display:
+        inline-flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      margin-top:
+        8px;
+
+      background:
+        #25D366;
+
+      color:
+        white;
+
+      text-decoration:
+        none;
+
+      padding:
+        12px 17px;
+
+      border-radius:
+        12px;
+
+      font-weight:
+        750;
+
+    }
+
+
+    /* =========================
+       EMPTY / LOADING
+    ========================= */
+
+    .empty-state {
+
+      text-align:
+        center;
+
+      padding:
+        60px 20px;
+
+      color:
+        var(--muted);
+
+      grid-column:
+        1 / -1;
+
+    }
+
+
+    .empty-state-icon {
+
+      font-size:
+        3rem;
+
+      margin-bottom:
+        12px;
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (
+      max-width: 650px
+    ) {
+
+      .header-inner {
+
+        padding:
+          14px 17px;
+
+      }
+
+
+      .hero {
+
+        min-height:
+          430px;
+
+        padding:
+          55px 20px;
+
+      }
+
+
+      .hero h1 {
+
+        font-size:
+          3.25rem;
+
+        letter-spacing:
+          -3px;
+
+      }
+
+
+      .hero p {
+
+        font-size:
+          .98rem;
+
+      }
+
+
+      main {
+
+        padding:
+          45px 17px 70px;
+
+      }
+
+
+      .menu-grid {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .category-heading h2 {
+
+        font-size:
+          2rem;
+
+      }
+
+
+      .cart-panel {
+
+        top:
+          8px;
+
+        right:
+          8px;
+
+        width:
+          calc(
+            100% - 16px
+          );
+
+        height:
+          calc(
+            100vh - 16px
+          );
+
+        border-radius:
+          24px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- HEADER -->
+
+  <header>
+
+    <div class="header-inner">
+
+      <div class="logo">
+        CITRINE <span>EATS</span> 🍴
+      </div>
+
+
+      <button
+        class="cart-button"
+        onclick="openCart()"
+      >
+
+        🛒
+
+        <span>
+          Cart
+        </span>
+
+        <span id="cartCount">
+          0
+        </span>
+
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-inner">
+
+      <div class="eyebrow">
+        ✦ CITRINE APARTMENTS
+      </div>
+
+
+      <h1>
+
+        Good food.
+
+        <span>
+          Delivered to your stay.
+        </span>
+
+      </h1>
+
+
+      <p>
+
+        A curated selection of
+        delicious food, available
+        exclusively for your stay.
+
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- MAIN -->
+
+  <main>
+
+
+    <section>
+
+      <h2 class="section-title">
+        Choose something good.
+      </h2>
+
+
+      <p class="section-subtitle">
+        Browse our curated menu and order straight to your room.
+      </p>
+
+
+      <div
+        id="menuContainer"
+      >
+
+        <div class="empty-state">
+
+          <div class="empty-state-icon">
+            🍴
+          </div>
+
+          <p>
+            Loading menu...
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- CART BACKDROP -->
+
+  <div
+    id="cartBackdrop"
+    class="cart-backdrop"
+    onclick="closeCart()"
+  ></div>
+
+
+  <!-- CART -->
+
+  <aside
+    id="cartPanel"
+    class="cart-panel"
+  >
+
+
+    <div class="cart-header">
+
+      <h2>
+        Your Cart
+      </h2>
+
+
+      <button
+        class="close-button"
+        onclick="closeCart()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div
+      id="cartItems"
+    ></div>
+
+
+    <div class="cart-total">
+
+      <span>
+        Total
+      </span>
+
+      <span id="cartTotal">
+        ₦0
+      </span>
+
+    </div>
+
+
+    <!-- CHECKOUT -->
+
+    <div id="checkoutArea">
+
+      <h3 class="checkout-heading">
+        Delivery details
+      </h3>
+
+
+      <div class="form-group">
+
+        <label>
+          Guest name
+        </label>
+
+        <input
+          id="guestName"
+          type="text"
+          placeholder="Your name"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Room
+        </label>
+
+        <input
+          id="room"
+          type="text"
+          placeholder="e.g. Room 2"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Phone number
+        </label>
+
+        <input
+          id="phone"
+          type="tel"
+          placeholder="08012345678"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Delivery notes
+        </label>
+
+        <textarea
+          id="notes"
+          rows="3"
+          placeholder="Any instructions?"
+        ></textarea>
+
+      </div>
+
+
+      <!-- PAYMENT -->
+
+      <div class="payment-box">
+
+        <h3>
+          💳 Bank transfer
+        </h3>
+
+
+        <div class="payment-row">
+
+          <span class="payment-label">
+            Bank
+          </span>
+
+          <span
+            id="bankName"
+            class="payment-value"
+          >
+            Loading...
+          </span>
+
+        </div>
+
+
+        <div class="payment-row">
+
+          <span class="payment-label">
+            Account name
+          </span>
+
+          <span
+            id="accountName"
+            class="payment-value"
+          >
+            Loading...
+          </span>
+
+        </div>
+
+
+        <div class="payment-row">
+
+          <span class="payment-label">
+            Account number
+          </span>
+
+          <span
+            id="accountNumber"
+            class="payment-value"
+          >
+            Loading...
+          </span>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="copy-account"
+          onclick="copyAccountNumber()"
+        >
+          Copy account number
+        </button>
+
+      </div>
+
+
+      <!-- PAYMENT PROOF -->
+
+      <div class="form-group">
+
+        <label>
+          Payment proof
+        </label>
+
+
+        <input
+          id="paymentProof"
+          class="file-input"
+          type="file"
+          accept="image/jpeg,image/png,image/webp,application/pdf"
+        >
+
+
+        <div class="file-help">
+
+          Upload your transfer receipt or
+          payment screenshot. JPG, PNG,
+          WEBP or PDF — maximum 10 MB.
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="place-order-button"
+        onclick="placeOrder()"
+      >
+
+        Submit Order
+
+      </button>
+
+    </div>
+
+
+    <!-- SUCCESS -->
+
+    <div
+      id="successArea"
+      style="display:none;"
+      class="success-message"
+    >
+
+      <h3>
+        🎉 Order received!
+      </h3>
+
+
+      <p>
+        Your order ID is:
+      </p>
+
+
+      <strong id="orderId"></strong>
+
+
+      <p>
+        We've received your order and payment proof.
+        Citrine will confirm your payment and handle
+        the restaurant order.
+      </p>
+
+
+      <a
+        id="whatsappLink"
+        class="whatsapp-button"
+        target="_blank"
+      >
+
+        Continue to WhatsApp
+
+      </a>
+
+
+      <br>
+
+
+      <button
+        type="button"
+        class="copy-account"
+        onclick="startNewOrder()"
+      >
+
+        Start a new order
+
+      </button>
+
+    </div>
+
+
+  </aside>
+
+
+  <script>
+
+
+    /* =========================
+       DATA
+    ========================= */
+
+    let menu = [];
+
+    let cart = [];
+
+
+    /*
+     * Payment details are supplied
+     * server-side.
+     */
+
+    let paymentDetails = {};
+
+
+    /* =========================
+       LOAD
+    ========================= */
+
+    function loadWebsiteData() {
+
+      google.script.run
+
+        .withSuccessHandler(
+          function(data) {
+
+            menu =
+              data.menu || [];
+
+            renderMenu();
+
+          }
+        )
+
+        .withFailureHandler(
+          function(error) {
+
+            document
+              .getElementById(
+                "menuContainer"
+              )
+              .innerHTML =
+
+              '<div class="empty-state">' +
+
+              '<div class="empty-state-icon">' +
+              '⚠️' +
+              '</div>' +
+
+              '<p>Unable to load the menu.</p>' +
+
+              '</div>';
+
+            console.error(
+              error
+            );
+
+          }
+        )
+
+        .getWebsiteData();
+
+
+      /*
+       * Payment details are not
+       * hardcoded into the page.
+       */
+
+      google.script.run
+
+        .withSuccessHandler(
+          function(data) {
+
+            /*
+             * If you want the payment
+             * details displayed, these
+             * are filled by a server
+             * function below.
+             */
+
+            paymentDetails =
+              data || {};
+
+            document.getElementById(
+              "bankName"
+            ).textContent =
+              paymentDetails.bank ||
+              "—";
+
+
+            document.getElementById(
+              "accountName"
+            ).textContent =
+              paymentDetails.accountName ||
+              "—";
+
+
+            document.getElementById(
+              "accountNumber"
+            ).textContent =
+              paymentDetails.accountNumber ||
+              "—";
+
+          }
+        )
+
+        .getPaymentDetails();
+
+    }
+
+
+    /* =========================
+       MENU
+    ========================= */
+
+    function renderMenu() {
+
+      const container =
+        document.getElementById(
+          "menuContainer"
+        );
+
+
+      const availableMenu =
+        menu.filter(
+          item =>
+            item.available
+        );
+
+
+      if (
+        availableMenu.length === 0
+      ) {
+
+        container.innerHTML =
+
+          '<div class="empty-state">' +
+
+          '<div class="empty-state-icon">' +
+          '🍽️' +
+          '</div>' +
+
+          '<p>No menu items available right now.</p>' +
+
+          '</div>';
+
+        return;
+
+      }
+
+
+      const categories = {};
+
+
+      availableMenu.forEach(
+        item => {
+
+          const category =
+            item.category ||
+            "Other";
+
+
+          if (
+            !categories[category]
+          ) {
+
+            categories[category] = [];
+
+          }
+
+
+          categories[category]
+            .push(
+              item
+            );
+
+        }
+      );
+
+
+      container.innerHTML = "";
+
+
+      Object.keys(
+        categories
+      ).forEach(
+        category => {
+
+
+          const block =
+            document.createElement(
+              "div"
+            );
+
+
+          block.className =
+            "category-block";
+
+
+          const heading =
+            document.createElement(
+              "div"
+            );
+
+
+          heading.className =
+            "category-heading";
+
+
+          heading.innerHTML =
+
+            '<h2>' +
+
+            escapeHtml(
+              category
+            ) +
+
+            '</h2>' +
+
+            '<div class="category-line"></div>';
+
+
+          block.appendChild(
+            heading
+          );
+
+
+          const grid =
+            document.createElement(
+              "div"
+            );
+
+
+          grid.className =
+            "menu-grid";
+
+
+          categories[category]
+            .forEach(
+              item => {
+
+                const card =
+                  document.createElement(
+                    "div"
+                  );
+
+
+                card.className =
+                  "menu-item";
+
+
+                card.innerHTML =
+
+                  '<h3>' +
+
+                  escapeHtml(
+                    item.name
+                  ) +
+
+                  '</h3>' +
+
+                  (
+                    item.description
+                      ?
+
+                      '<p>' +
+
+                      escapeHtml(
+                        item.description
+                      ) +
+
+                      '</p>'
+
+                      :
+
+                      ''
+                  ) +
+
+                  '<div class="menu-item-bottom">' +
+
+                  '<span class="price">' +
+
+                  '₦' +
+
+                  formatMoney(
+                    item.price
+                  ) +
+
+                  '</span>' +
+
+                  '<button class="add-button">' +
+
+                  '+ Add' +
+
+                  '</button>' +
+
+                  '</div>';
+
+
+                card
+                  .querySelector(
+                    ".add-button"
+                  )
+                  .onclick =
+                  function() {
+
+                    addToCart(
+                      item
+                    );
+
+                  };
+
+
+                grid.appendChild(
+                  card
+                );
+
+              }
+            );
+
+
+          block.appendChild(
+            grid
+          );
+
+
+          container.appendChild(
+            block
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       CART
+    ========================= */
+
+    function addToCart(
+      item
+    ) {
+
+      const existing =
+        cart.find(
+          cartItem =>
+            String(
+              cartItem.id
+            ) ===
+            String(
+              item.id
+            )
+        );
+
+
+      if (existing) {
+
+        existing.quantity += 1;
+
+      } else {
+
+        cart.push({
+
+          id:
+            item.id,
+
+          category:
+            item.category,
+
+          name:
+            item.name,
+
+          price:
+            Number(
+              item.price
+            ),
+
+          quantity:
+            1
+
+        });
+
+      }
+
+
+      updateCart();
+
+    }
+
+
+    function removeFromCart(
+      itemId
+    ) {
+
+      cart =
+        cart.filter(
+          item =>
+            String(
+              item.id
+            ) !==
+            String(
+              itemId
+            )
+        );
+
+
+      updateCart();
+
+    }
+
+
+    function updateCart() {
+
+      const count =
+        cart.reduce(
+          (
+            total,
+            item
+          ) =>
+
+            total +
+            item.quantity,
+
+          0
+        );
+
+
+      document.getElementById(
+        "cartCount"
+      ).textContent =
+        count;
+
+
+      const cartItems =
+        document.getElementById(
+          "cartItems"
+        );
+
+
+      if (
+        cart.length === 0
+      ) {
+
+        cartItems.innerHTML =
+
+          '<div class="empty-state">' +
+
+          '<div class="empty-state-icon">' +
+          '🛒' +
+          '</div>' +
+
+          '<p>Your cart is empty.</p>' +
+
+          '</div>';
+
+      } else {
+
+        cartItems.innerHTML =
+
+          cart
+            .map(
+              item =>
+
+                '<div class="cart-item">' +
+
+                '<div class="cart-item-top">' +
+
+                '<div>' +
+
+                '<div class="cart-category">' +
+
+                escapeHtml(
+                  item.category
+                ) +
+
+                '</div>' +
+
+                '<div class="cart-item-name">' +
+
+                escapeHtml(
+                  item.name
+                ) +
+
+                '</div>' +
+
+                '<div class="cart-item-price">' +
+
+                item.quantity +
+
+                ' × ₦' +
+
+                formatMoney(
+                  item.price
+                ) +
+
+                '</div>' +
+
+                '</div>' +
+
+                '<button class="remove-button" ' +
+
+                'onclick="removeFromCart(\'' +
+
+                escapeAttribute(
+                  item.id
+                ) +
+
+                '\')">' +
+
+                'Remove' +
+
+                '</button>' +
+
+                '</div>' +
+
+                '</div>'
+            )
+            .join("");
+
+      }
+
+
+      const total =
+        cart.reduce(
+          (
+            sum,
+            item
+          ) =>
+
+            sum +
+            (
+              item.price *
+              item.quantity
+            ),
+
+          0
+        );
+
+
+      document.getElementById(
+        "cartTotal"
+      ).textContent =
+
+        "₦" +
+        formatMoney(
+          total
+        );
+
+    }
+
+
+    /* =========================
+       CART OPEN/CLOSE
+    ========================= */
+
+    function openCart() {
+
+      document
+        .getElementById(
+          "cartPanel"
+        )
+        .classList.add(
+          "open"
+        );
+
+
+      document
+        .getElementById(
+          "cartBackdrop"
+        )
+        .classList.add(
+          "active"
+        );
+
+
+      updateCart();
+
+    }
+
+
+    function closeCart() {
+
+      document
+        .getElementById(
+          "cartPanel"
+        )
+        .classList.remove(
+          "open"
+        );
+
+
+      document
+        .getElementById(
+          "cartBackdrop"
+        )
+        .classList.remove(
+          "active"
+        );
+
+    }
+
+
+    /* =========================
+       COPY ACCOUNT
+    ========================= */
+
+    function copyAccountNumber() {
+
+      const number =
+        paymentDetails
+          .accountNumber ||
+        "";
+
+
+      if (!number) {
+
+        alert(
+          "Account number is not available yet."
+        );
+
+        return;
+
+      }
+
+
+      navigator.clipboard
+        .writeText(
+          number
+        )
+        .then(
+          function() {
+
+            alert(
+              "Account number copied."
+            );
+
+          }
+        );
+
+    }
+
+
+    /* =========================
+       UPLOAD PAYMENT PROOF
+    ========================= */
+
+    function uploadProof(
+      file
+    ) {
+
+      return new Promise(
+        function(
+          resolve,
+          reject
+        ) {
+
+          if (!file) {
+
+            reject(
+              new Error(
+                "Please upload your payment proof."
+              )
+            );
+
+            return;
+
+          }
+
+
+          if (
+            file.size >
+            10 * 1024 * 1024
+          ) {
+
+            reject(
+              new Error(
+                "Payment proof must be 10 MB or smaller."
+              )
+            );
+
+            return;
+
+          }
+
+
+          const allowedTypes = [
+
+            "image/jpeg",
+            "image/png",
+            "image/webp",
+            "application/pdf"
+
+          ];
+
+
+          if (
+            allowedTypes.indexOf(
+              file.type
+            ) === -1
+          ) {
+
+            reject(
+              new Error(
+                "Please upload a JPG, PNG, WEBP or PDF."
+              )
+            );
+
+            return;
+
+          }
+
+
+          const reader =
+            new FileReader();
+
+
+          reader.onload =
+            function() {
+
+              const base64 =
+                reader.result
+                  .split(",")[1];
+
+
+              google.script.run
+
+                .withSuccessHandler(
+                  function(result) {
+
+                    resolve(
+                      result
+                    );
+
+                  }
+                )
+
+                .withFailureHandler(
+                  function(error) {
+
+                    reject(
+                      error
+                    );
+
+                  }
+                )
+
+                .uploadPaymentProof({
+
+                  base64:
+                    base64,
+
+                  fileName:
+                    file.name,
+
+                  mimeType:
+                    file.type
+
+                });
+
+            };
+
+
+          reader.onerror =
+            function() {
+
+              reject(
+                new Error(
+                  "Unable to read the payment proof."
+                )
+              );
+
+            };
+
+
+          reader.readAsDataURL(
+            file
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       PLACE ORDER
+    ========================= */
+
+    async function placeOrder() {
+
+      if (
+        cart.length === 0
+      ) {
+
+        alert(
+          "Your cart is empty."
+        );
+
+        return;
+
+      }
+
+
+      const guestName =
+        document
+          .getElementById(
+            "guestName"
+          )
+          .value
+          .trim();
+
+
+      const room =
+        document
+          .getElementById(
+            "room"
+          )
+          .value
+          .trim();
+
+
+      const phone =
+        document
+          .getElementById(
+            "phone"
+          )
+          .value
+          .trim();
+
+
+      const notes =
+        document
+          .getElementById(
+            "notes"
+          )
+          .value
+          .trim();
+
+
+      const proof =
+        document
+          .getElementById(
+            "paymentProof"
+          )
+          .files[0];
+
+
+      if (
+        !guestName ||
+        !room
+      ) {
+
+        alert(
+          "Please enter your name and room number."
+        );
+
+        return;
+
+      }
+
+
+      if (!proof) {
+
+        alert(
+          "Please upload your payment proof."
+        );
+
+        return;
+
+      }
+
+
+      const button =
+        document.querySelector(
+          ".place-order-button"
+        );
+
+
+      button.disabled =
+        true;
+
+
+      button.textContent =
+        "Uploading proof...";
+
+
+      try {
+
+        const proofResult =
+          await uploadProof(
+            proof
+          );
+
+
+        button.textContent =
+          "Submitting order...";
+
+
+        const order = {
+
+          guestName:
+            guestName,
+
+          room:
+            room,
+
+          phone:
+            phone,
+
+          items:
+
+            cart.map(
+              item => ({
+
+                itemId:
+                  item.id,
+
+                category:
+                  item.category,
+
+                name:
+                  item.name,
+
+                quantity:
+                  item.quantity,
+
+                price:
+                  item.price
+
+              })
+            ),
+
+          notes:
+            notes,
+
+          paymentMethod:
+            "Bank Transfer",
+
+          paymentProofUrl:
+            proofResult.url
+
+        };
+
+
+        google.script.run
+
+          .withSuccessHandler(
+            function(result) {
+
+              button.disabled =
+                false;
+
+              button.textContent =
+                "Submit Order";
+
+
+              if (
+                !result.success
+              ) {
+
+                alert(
+                  result.error ||
+                  "Something went wrong."
+                );
+
+                return;
+
+              }
+
+
+              document.getElementById(
+                "checkoutArea"
+              ).style.display =
+                "none";
+
+
+              document.getElementById(
+                "successArea"
+              ).style.display =
+                "block";
+
+
+              document.getElementById(
+                "orderId"
+              ).textContent =
+                result.orderId;
+
+
+              document.getElementById(
+                "whatsappLink"
+              ).href =
+                result.whatsappUrl;
+
+
+              cart = [];
+
+              updateCart();
+
+            }
+          )
+
+          .withFailureHandler(
+            function(error) {
+
+              button.disabled =
+                false;
+
+              button.textContent =
+                "Submit Order";
+
+
+              alert(
+                "Unable to submit order: " +
+                error.message
+              );
+
+              console.error(
+                error
+              );
+
+            }
+          )
+
+          .createOrder(
+            order
+          );
+
+      } catch (
+        error
+      ) {
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Submit Order";
+
+
+        alert(
+          error.message ||
+          "Unable to upload payment proof."
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       NEW ORDER
+    ========================= */
+
+    function startNewOrder() {
+
+      cart = [];
+
+
+      document.getElementById(
+        "guestName"
+      ).value = "";
+
+
+      document.getElementById(
+        "room"
+      ).value = "";
+
+
+      document.getElementById(
+        "phone"
+      ).value = "";
+
+
+      document.getElementById(
+        "notes"
+      ).value = "";
+
+
+      document.getElementById(
+        "paymentProof"
+      ).value = "";
+
+
+      document.getElementById(
+        "checkoutArea"
+      ).style.display =
+        "block";
+
+
+      document.getElementById(
+        "successArea"
+      ).style.display =
+        "none";
+
+
+      document.getElementById(
+        "orderId"
+      ).textContent =
+        "";
+
+
+      document.getElementById(
+        "whatsappLink"
+      ).href =
+        "#";
+
+
+      updateCart();
+
+    }
+
+
+    /* =========================
+       FORMAT MONEY
+    ========================= */
+
+    function formatMoney(
+      amount
+    ) {
+
+      return Number(
+        amount || 0
+      ).toLocaleString(
+        "en-NG",
+        {
+          maximumFractionDigits:
+            0
+        }
+      );
+
+    }
+
+
+    /* =========================
+       SECURITY
+    ========================= */
+
+    function escapeHtml(
+      text
+    ) {
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.textContent =
+        text == null
+          ? ""
+          : String(text);
+
+
+      return div.innerHTML;
+
+    }
+
+
+    function escapeAttribute(
+      text
+    ) {
+
+      return String(
+        text == null
+          ? ""
+          : text
+      )
+
+      .replace(
+        /\\/g,
+        "\\\\"
+      )
+
+      .replace(
+        /'/g,
+        "\\'"
+      );
+
+    }
+
+
+    /* =========================
+       START
+    ========================= */
+
+    loadWebsiteData();
+
+  </script>
+
+
+</body>
+
+</html>
