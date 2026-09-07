@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Citrine Eats</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  background: #fffaf0;
+  color: #1d1d1f;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 16px 24px;
+  background: rgba(255,250,240,0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.cart-button {
+  border: 0;
+  background: #f5b400;
+  color: #111;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.hero {
+  max-width: 1200px;
+  margin: auto;
+  padding: 90px 24px 65px;
+}
+
+.hero-card {
+  background:
+    linear-gradient(
+      135deg,
+      #fff0a8,
+      #ffd45c
+    );
+  border-radius: 36px;
+  padding: 70px 50px;
+  overflow: hidden;
+}
+
+.hero h1 {
+  margin: 0;
+  max-width: 750px;
+  font-size: clamp(48px, 8vw, 92px);
+  line-height: .92;
+  letter-spacing: -5px;
+}
+
+.hero p {
+  max-width: 600px;
+  margin-top: 25px;
+  font-size: 19px;
+  line-height: 1.5;
+  color: #454545;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 24px 100px;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 70px 20px;
+  font-size: 18px;
+}
+
+.category {
+  margin-top: 60px;
+}
+
+.category-title {
+  font-size: 32px;
+  letter-spacing: -1px;
+  margin: 0 0 22px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.menu-card {
+  background: white;
+  border-radius: 24px;
+  padding: 22px;
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.04);
+  display: flex;
+  flex-direction: column;
+  min-height: 190px;
+}
+
+.menu-card h3 {
+  margin: 0;
+  font-size: 19px;
+  letter-spacing: -.3px;
+}
+
+.menu-card p {
+  color: #777;
+  line-height: 1.4;
+  margin: 9px 0 20px;
+  flex: 1;
+}
+
+.price {
+  font-weight: 700;
+  font-size: 17px;
+  margin-bottom: 13px;
+}
+
+.add-button {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  background: #f5b400;
+  padding: 12px;
+  font-weight: 700;
+}
+
+.add-button:hover {
+  background: #e7a900;
+}
+
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.32);
+  z-index: 199;
+  display: none;
+}
+
+.cart-overlay.show {
+  display: block;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -450px;
+  width: min(430px, 92vw);
+  height: 100vh;
+  background: #fff;
+  z-index: 200;
+  transition: right .3s ease;
+  box-shadow:
+    -15px 0 50px rgba(0,0,0,.15);
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-drawer.open {
+  right: 0;
+}
+
+.cart-header {
+  padding: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-header h2 {
+  margin: 0;
+}
+
+.close-cart {
+  border: 0;
+  background: #f2f2f2;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+}
+
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.empty-cart {
+  color: #777;
+  text-align: center;
+  padding: 50px 10px;
+}
+
+.cart-item {
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.cart-item-name {
+  font-weight: 700;
+}
+
+.cart-item-price {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.quantity-controls button {
+  border: 0;
+  background: #f2f2f2;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.cart-footer {
+  padding: 20px;
+  border-top: 1px solid #eee;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.checkout-button {
+  width: 100%;
+  border: 0;
+  border-radius: 16px;
+  padding: 15px;
+  background: #111;
+  color: white;
+  font-weight: 700;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 300;
+  display: none;
+  overflow-y: auto;
+  padding: 25px;
+}
+
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-box {
+  background: white;
+  width: min(600px, 100%);
+  border-radius: 28px;
+  padding: 30px;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+.modal-box h2 {
+  margin-top: 0;
+  font-size: 30px;
+}
+
+.form-group {
+  margin-bottom: 17px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 13px;
+  padding: 12px 14px;
+  background: white;
+}
+
+.form-group textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.payment-box {
+  background: #fff6d7;
+  border-radius: 18px;
+  padding: 18px;
+  margin: 22px 0;
+}
+
+.payment-box h3 {
+  margin-top: 0;
+}
+
+.payment-line {
+  margin: 8px 0;
+}
+
+.account-number-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.account-number {
+  flex: 1;
+  font-weight: 700;
+  word-break: break-all;
+}
+
+.copy-button {
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: #111;
+  color: white;
+}
+
+.payment-note {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.45;
+  margin-top: 15px;
+}
+
+.continue-button {
+  width: 100%;
+  border: 0;
+  border-radius: 15px;
+  padding: 15px;
+  background: #f5b400;
+  font-weight: 700;
+}
+
+.cancel-button {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 13px;
+  margin-top: 5px;
+  color: #666;
+}
+
+.success {
+  text-align: center;
+  padding: 20px 5px;
+}
+
+.success-icon {
+  font-size: 55px;
+}
+
+.success h2 {
+  font-size: 32px;
+}
+
+.success p {
+  line-height: 1.5;
+  color: #666;
+}
+
+.whatsapp-button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  background: #25D366;
+  color: white;
+  padding: 15px;
+  border-radius: 15px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.new-order-button {
+  width: 100%;
+  border: 0;
+  background: #111;
+  color: white;
+  padding: 15px;
+  border-radius: 15px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.message {
+  padding: 13px 15px;
+  border-radius: 13px;
+  background: #f5f5f5;
+  margin-bottom: 15px;
+  display: none;
+}
+
+.message.show {
+  display: block;
+}
+
+@media (max-width: 600px) {
+
+  header {
+    padding: 13px 16px;
+  }
+
+  .hero {
+    padding: 30px 16px 40px;
+  }
+
+  .hero-card {
+    padding: 45px 25px;
+    border-radius: 28px;
+  }
+
+  .hero h1 {
+    font-size: 55px;
+    letter-spacing: -3px;
+  }
+
+  .container {
+    padding: 0 16px 80px;
+  }
+
+  .category-title {
+    font-size: 27px;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal {
+    padding: 12px;
+  }
+
+  .modal-box {
+    border-radius: 22px;
+    padding: 22px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="header-inner">
+
+    <div class="logo">
+      Citrine Eats
+    </div>
+
+    <button
+      class="cart-button"
+      onclick="openCart()"
+    >
+      Cart
+      <span id="cartCount">0</span>
+    </button>
+
+  </div>
+
+</header>
+
+
+<section class="hero">
+
+  <div class="hero-card">
+
+    <h1>
+      Good food.<br>
+      Delivered to<br>
+      your room.
+    </h1>
+
+    <p>
+      Order your favourites through
+      Citrine Eats and enjoy your meal
+      from the comfort of Citrine Apartments.
+    </p>
+
+  </div>
+
+</section>
+
+
+<main class="container">
+
+  <div
+    id="loading"
+    class="loading"
+  >
+    Loading menu…
+  </div>
+
+  <div
+    id="error"
+    class="error"
+    style="display:none;"
+  ></div>
+
+  <div id="menu"></div>
+
+</main>
+
+
+<div
+  id="cartOverlay"
+  class="cart-overlay"
+  onclick="closeCart()"
+></div>
+
+
+<aside
+  id="cartDrawer"
+  class="cart-drawer"
+>
+
+  <div class="cart-header">
+
+    <h2>Your Cart</h2>
+
+    <button
+      class="close-cart"
+      onclick="closeCart()"
+    >
+      ✕
+    </button>
+
+  </div>
+
+
+  <div
+    id="cartItems"
+    class="cart-items"
+  ></div>
+
+
+  <div class="cart-footer">
+
+    <div class="total-row">
+
+      <span>Total</span>
+
+      <span id="cartTotal">
+        ₦0
+      </span>
+
+    </div>
+
+    <button
+      class="checkout-button"
+      onclick="openCheckout()"
+    >
+      Continue to Checkout
+    </button>
+
+  </div>
+
+</aside>
+
+
+<div
+  id="checkoutModal"
+  class="modal"
+>
+
+  <div class="modal-box">
+
+    <div id="checkoutContent">
+
+      <h2>
+        Checkout
+      </h2>
+
+      <div
+        id="checkoutMessage"
+        class="message"
+      ></div>
+
+
+      <div class="form-group">
+
+        <label>
+          Guest name
+        </label>
+
+        <input
+          id="guestName"
+          type="text"
+          placeholder="Your name"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Room
+        </label>
+
+        <input
+          id="room"
+          type="text"
+          placeholder="Your room"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Phone number
+        </label>
+
+        <input
+          id="phone"
+          type="tel"
+          placeholder="080..."
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Notes
+        </label>
+
+        <textarea
+          id="notes"
+          placeholder="Any special instructions?"
+        ></textarea>
+
+      </div>
+
+
+      <div class="payment-box">
+
+        <h3>
+          Bank Transfer
+        </h3>
+
+        <div class="payment-line">
+          <strong>Bank:</strong>
+          <span id="bankName">
+            Loading…
+          </span>
+        </div>
+
+        <div class="payment-line">
+          <strong>Account name:</strong>
+          <span id="accountName">
+            Loading…
+          </span>
+        </div>
+
+        <div class="payment-line">
+
+          <strong>
+            Account number:
+          </strong>
+
+          <div class="account-number-row">
+
+            <span
+              id="accountNumber"
+              class="account-number"
+            >
+              Loading…
+            </span>
+
+            <button
+              class="copy-button"
+              onclick="copyAccountNumber()"
+            >
+              Copy
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="payment-note">
+
+          After transferring, tap
+          <strong>
+            Continue to WhatsApp
+          </strong>
+          and send your proof of payment
+          in the chat.
+
+          Payment is confirmed manually.
+
+        </div>
+
+      </div>
+
+
+      <button
+        id="submitOrderButton"
+        class="continue-button"
+        onclick="submitOrder()"
+      >
+        Continue to WhatsApp
+      </button>
+
+
+      <button
+        class="cancel-button"
+        onclick="closeCheckout()"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+
+/*
+==================================================
+APPS SCRIPT URL
+==================================================
+*/
+
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbwHv09WRrsqFtNSjnvuJAAx9V_a0HW_gm3RCZFoHFlbpnQzf_Uq8dc0w1R8yDn_hQFs/exec";
+
+
+/*
+==================================================
+STATE
+==================================================
+*/
+
+let menu = [];
+
+let cart = [];
+
+let paymentDetails = {};
+
+
+/*
+==================================================
+API
+==================================================
+*/
+
+async function api(
+  action,
+  payload
+) {
+
+  const url =
+    APPS_SCRIPT_URL +
+    "?action=" +
+    encodeURIComponent(
+      action
+    );
+
+
+  let options;
+
+
+  if (payload) {
+
+    options = {
+
+      method:
+        "POST",
+
+      headers: {
+
+        "Content-Type":
+          "text/plain;charset=utf-8"
+
+      },
+
+      body:
+        JSON.stringify({
+
+          action:
+            action,
+
+          payload:
+            payload
+
+        })
+
+    };
+
+  } else {
+
+    options = {
+
+      method:
+        "GET"
+
+    };
+
+  }
+
+
+  const response =
+    await fetch(
+      url,
+      options
+    );
+
+
+  if (
+    !response.ok
+  ) {
+
+    throw new Error(
+
+      "Server request failed (" +
+      response.status +
+      ")."
+
+    );
+
+  }
+
+
+  const text =
+    await response.text();
+
+
+  try {
+
+    return JSON.parse(
+      text
+    );
+
+  } catch (error) {
+
+    throw new Error(
+      "The Apps Script server did not return valid data."
+    );
+
+  }
+
+}
+
+
+/*
+==================================================
+LOAD WEBSITE
+==================================================
+*/
+
+async function loadWebsite() {
+
+  try {
+
+    const data =
+      await api(
+        "getWebsiteData"
+      );
+
+
+    menu =
+      data.menu ||
+      [];
+
+
+    document
+      .getElementById(
+        "loading"
+      )
+      .style
+      .display =
+      "none";
+
+
+    if (
+      !menu.length
+    ) {
+
+      showError(
+        "No menu items are currently available."
+      );
+
+      return;
+
+    }
+
+
+    renderMenu();
+
+
+    try {
+
+      paymentDetails =
+        await api(
+          "getPaymentDetails"
+        );
+
+      loadPaymentDetails();
+
+    } catch (paymentError) {
+
+      console.error(
+        paymentError
+      );
+
+    }
+
+
+  } catch (error) {
+
+    console.error(
+      error
+    );
+
+
+    document
+      .getElementById(
+        "loading"
+      )
+      .style
+      .display =
+      "none";
+
+
+    showError(
+
+      "We couldn't load the menu right now. Please refresh the page and try again."
+
+    );
+
+  }
+
+}
+
+
+/*
+==================================================
+ERROR
+==================================================
+*/
+
+function showError(
+  message
+) {
+
+  const error =
+    document.getElementById(
+      "error"
+    );
+
+
+  error.textContent =
+    message;
+
+
+  error.style.display =
+    "block";
+
+}
+
+
+/*
+==================================================
+RENDER MENU
+==================================================
+*/
+
+function renderMenu() {
+
+  const menuContainer =
+    document.getElementById(
+      "menu"
+    );
+
+
+  menuContainer.innerHTML =
+    "";
+
+
+  const categories = [];
+
+
+  menu.forEach(
+    item => {
+
+      if (
+        !categories.includes(
+          item.category
+        )
+      ) {
+
+        categories.push(
+          item.category
+        );
+
+      }
+
+    }
+  );
+
+
+  categories.forEach(
+    category => {
+
+      const categoryItems =
+        menu.filter(
+          item =>
+            item.category ===
+            category
+        );
+
+
+      const section =
+        document.createElement(
+          "section"
+        );
+
+
+      section.className =
+        "category";
+
+
+      const title =
+        document.createElement(
+          "h2"
+        );
+
+
+      title.className =
+        "category-title";
+
+
+      title.textContent =
+        cleanCategoryName(
+          category
+        );
+
+
+      section.appendChild(
+        title
+      );
+
+
+      const grid =
+        document.createElement(
+          "div"
+        );
+
+
+      grid.className =
+        "menu-grid";
+
+
+      categoryItems.forEach(
+        item => {
+
+          if (
+            !item.available
+          ) {
+
+            return;
+
+          }
+
+
+          const card =
+            document.createElement(
+              "div"
+            );
+
+
+          card.className =
+            "menu-card";
+
+
+          const title =
+            document.createElement(
+              "h3"
+            );
+
+
+          title.textContent =
+            item.name;
+
+
+          const description =
+            document.createElement(
+              "p"
+            );
+
+
+          description.textContent =
+            item.description ||
+            "";
+
+
+          const price =
+            document.createElement(
+              "div"
+            );
+
+
+          price.className =
+            "price";
+
+
+          price.textContent =
+            "₦" +
+            money(
+              item.price
+            );
+
+
+          const button =
+            document.createElement(
+              "button"
+            );
+
+
+          button.className =
+            "add-button";
+
+
+          button.textContent =
+            "Add to cart";
+
+
+          button.onclick =
+            () =>
+              addToCart(
+                item.id
+              );
+
+
+          card.appendChild(
+            title
+          );
+
+          card.appendChild(
+            description
+          );
+
+          card.appendChild(
+            price
+          );
+
+          card.appendChild(
+            button
+          );
+
+
+          grid.appendChild(
+            card
+          );
+
+        }
+      );
+
+
+      section.appendChild(
+        grid
+      );
+
+
+      menuContainer.appendChild(
+        section
+      );
+
+    }
+  );
+
+}
+
+
+/*
+==================================================
+CATEGORY NAME
+==================================================
+*/
+
+function cleanCategoryName(
+  category
+) {
+
+  return String(
+    category
+  )
+
+    .replace(
+      /^D['’\s-]*EXPRESS\s*/i,
+      ""
+    )
+
+    .replace(
+      /^D['’\s-]+EXPRESS\s*/i,
+      ""
+    )
+
+    .trim();
+
+}
+
+
+/*
+==================================================
+CART
+==================================================
+*/
+
+function addToCart(
+  itemId
+) {
+
+  const item =
+    menu.find(
+      product =>
+        String(
+          product.id
+        ) ===
+        String(
+          itemId
+        )
+    );
+
+
+  if (!item) {
+    return;
+  }
+
+
+  const existing =
+    cart.find(
+      cartItem =>
+        String(
+          cartItem.id
+        ) ===
+        String(
+          item.id
+        )
+    );
+
+
+  if (existing) {
+
+    existing.quantity++;
+
+  } else {
+
+    cart.push({
+
+      ...item,
+
+      quantity:
+        1
+
+    });
+
+  }
+
+
+  updateCart();
+
+  openCart();
+
+}
+
+
+/*
+==================================================
+UPDATE CART
+==================================================
+*/
+
+function updateCart() {
+
+  const container =
+    document.getElementById(
+      "cartItems"
+    );
+
+
+  const count =
+    cart.reduce(
+      (
+        total,
+        item
+      ) =>
+        total +
+        item.quantity,
+
+      0
+    );
+
+
+  document
+    .getElementById(
+      "cartCount"
+    )
+    .textContent =
+    count;
+
+
+  if (!cart.length) {
+
+    container.innerHTML =
+
+      '<div class="empty-cart">' +
+      'Your cart is empty.' +
+      '</div>';
+
+  } else {
+
+    container.innerHTML =
+      "";
+
+
+    cart.forEach(
+      item => {
+
+        const row =
+          document.createElement(
+            "div"
+          );
+
+
+        row.className =
+          "cart-item";
+
+
+        row.innerHTML =
+
+          '<div class="cart-item-top">' +
+
+            '<div class="cart-item-name">' +
+
+              escapeHtml(
+                item.name
+              ) +
+
+            '</div>' +
+
+            '<div class="cart-item-price">' +
+
+              "₦" +
+              money(
+                item.price *
+                item.quantity
+              ) +
+
+            '</div>' +
+
+          '</div>' +
+
+
+          '<div class="quantity-controls">' +
+
+            '<button onclick="changeQuantity(\'' +
+              escapeAttribute(
+                item.id
+              ) +
+              '\', -1)">−</button>' +
+
+            '<span>' +
+              item.quantity +
+            '</span>' +
+
+            '<button onclick="changeQuantity(\'' +
+              escapeAttribute(
+                item.id
+              ) +
+              '\', 1)">+</button>' +
+
+          '</div>';
+
+
+        container.appendChild(
+          row
+        );
+
+      }
+    );
+
+  }
+
+
+  const total =
+    getCartTotal();
+
+
+  document
+    .getElementById(
+      "cartTotal"
+    )
+    .textContent =
+    "₦" +
+    money(
+      total
+    );
+
+}
+
+
+/*
+==================================================
+QUANTITY
+==================================================
+*/
+
+function changeQuantity(
+  itemId,
+  amount
+) {
+
+  const item =
+    cart.find(
+      cartItem =>
+        String(
+          cartItem.id
+        ) ===
+        String(
+          itemId
+        )
+    );
+
+
+  if (!item) {
+    return;
+  }
+
+
+  item.quantity +=
+    amount;
+
+
+  if (
+    item.quantity <= 0
+  ) {
+
+    cart =
+      cart.filter(
+        cartItem =>
+          String(
+            cartItem.id
+          ) !==
+          String(
+            itemId
+          )
+      );
+
+  }
+
+
+  updateCart();
+
+}
+
+
+/*
+==================================================
+TOTAL
+==================================================
+*/
+
+function getCartTotal() {
+
+  return cart.reduce(
+
+    (
+      total,
+      item
+    ) =>
+
+      total +
+      (
+        item.price *
+        item.quantity
+      ),
+
+    0
+
+  );
+
+}
+
+
+/*
+==================================================
+CART OPEN/CLOSE
+==================================================
+*/
+
+function openCart() {
+
+  document
+    .getElementById(
+      "cartDrawer"
+    )
+    .classList
+    .add("open");
+
+
+  document
+    .getElementById(
+      "cartOverlay"
+    )
+    .classList
+    .add("show");
+
+}
+
+
+function closeCart() {
+
+  document
+    .getElementById(
+      "cartDrawer"
+    )
+    .classList
+    .remove("open");
+
+
+  document
+    .getElementById(
+      "cartOverlay"
+    )
+    .classList
+    .remove("show");
+
+}
+
+
+/*
+==================================================
+CHECKOUT
+==================================================
+*/
+
+function openCheckout() {
+
+  if (!cart.length) {
+
+    alert(
+      "Your cart is empty."
+    );
+
+    return;
+
+  }
+
+
+  closeCart();
+
+
+  document
+    .getElementById(
+      "checkoutModal"
+    )
+    .classList
+    .add("show");
+
+
+  loadPaymentDetails();
+
+}
+
+
+function closeCheckout() {
+
+  document
+    .getElementById(
+      "checkoutModal"
+    )
+    .classList
+    .remove("show");
+
+}
+
+
+/*
+==================================================
+PAYMENT DETAILS
+==================================================
+*/
+
+function loadPaymentDetails() {
+
+  if (!paymentDetails) {
+    return;
+  }
+
+
+  document
+    .getElementById(
+      "bankName"
+    )
+    .textContent =
+    paymentDetails.bank ||
+    "Loading…";
+
+
+  document
+    .getElementById(
+      "accountName"
+    )
+    .textContent =
+    paymentDetails.accountName ||
+    "Loading…";
+
+
+  document
+    .getElementById(
+      "accountNumber"
+    )
+    .textContent =
+    paymentDetails.accountNumber ||
+    "Loading…";
+
+}
+
+
+/*
+==================================================
+COPY ACCOUNT NUMBER
+==================================================
+*/
+
+async function copyAccountNumber() {
+
+  const number =
+    paymentDetails.accountNumber;
+
+
+  if (!number) {
+    return;
+  }
+
+
+  try {
+
+    await navigator.clipboard.writeText(
+      number
+    );
+
+
+    alert(
+      "Account number copied."
+    );
+
+  } catch (error) {
+
+    alert(
+      "Please copy the account number manually."
+    );
+
+  }
+
+}
+
+
+/*
+==================================================
+SUBMIT ORDER
+==================================================
+*/
+
+async function submitOrder() {
+
+  const guestName =
+    document
+      .getElementById(
+        "guestName"
+      )
+      .value
+      .trim();
+
+
+  const room =
+    document
+      .getElementById(
+        "room"
+      )
+      .value
+      .trim();
+
+
+  const phone =
+    document
+      .getElementById(
+        "phone"
+      )
+      .value
+      .trim();
+
+
+  const notes =
+    document
+      .getElementById(
+        "notes"
+      )
+      .value
+      .trim();
+
+
+  if (!guestName) {
+
+    showCheckoutMessage(
+      "Please enter your name."
+    );
+
+    return;
+
+  }
+
+
+  if (!room) {
+
+    showCheckoutMessage(
+      "Please enter your room."
+    );
+
+    return;
+
+  }
+
+
+  if (!cart.length) {
+
+    showCheckoutMessage(
+      "Your cart is empty."
+    );
+
+    return;
+
+  }
+
+
+  const button =
+    document.getElementById(
+      "submitOrderButton"
+    );
+
+
+  button.disabled =
+    true;
+
+
+  button.textContent =
+    "Sending order…";
+
+
+  try {
+
+    const result =
+      await api(
+
+        "createOrder",
+
+        {
+
+          guestName:
+            guestName,
+
+          room:
+            room,
+
+          phone:
+            phone,
+
+          notes:
+            notes,
+
+          items:
+            cart.map(
+              item => ({
+
+                itemId:
+                  item.id,
+
+                name:
+                  item.name,
+
+                quantity:
+                  item.quantity
+
+              })
+            )
+
+        }
+
+      );
+
+
+    if (
+      !result ||
+      !result.success
+    ) {
+
+      throw new Error(
+
+        result &&
+        result.error
+
+          ? result.error
+
+          : "Unable to create order."
+
+      );
+
+    }
+
+
+    showSuccess(
+      result
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      error
+    );
+
+
+    showCheckoutMessage(
+
+      error.message ||
+      "Something went wrong. Please try again."
+
+    );
+
+
+    button.disabled =
+      false;
+
+
+    button.textContent =
+      "Continue to WhatsApp";
+
+  }
+
+}
+
+
+/*
+==================================================
+CHECKOUT MESSAGE
+==================================================
+*/
+
+function showCheckoutMessage(
+  message
+) {
+
+  const element =
+    document.getElementById(
+      "checkoutMessage"
+    );
+
+
+  element.textContent =
+    message;
+
+
+  element.classList
+    .add("show");
+
+}
+
+
+/*
+==================================================
+SUCCESS
+==================================================
+*/
+
+function showSuccess(
+  result
+) {
+
+  const content =
+    document.getElementById(
+      "checkoutContent"
+    );
+
+
+  content.innerHTML = `
+
+    <div class="success">
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <h2>
+        Order received!
+      </h2>
+
+      <p>
+
+        Your order
+        <strong>
+          ${escapeHtml(
+            result.orderId
+          )}
+        </strong>
+        has been received.
+
+      </p>
+
+
+      <p>
+
+        Please complete your bank transfer,
+        then send your proof of payment
+        in the WhatsApp chat.
+
+      </p>
+
+
+      <a
+        class="whatsapp-button"
+        href="${result.whatsappUrl}"
+        target="_blank"
+        rel="noopener"
+      >
+        Continue to WhatsApp
+      </a>
+
+
+      <button
+        class="new-order-button"
+        onclick="newOrder()"
+      >
+        Start New Order
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/*
+==================================================
+NEW ORDER
+==================================================
+*/
+
+function newOrder() {
+
+  cart = [];
+
+
+  updateCart();
+
+
+  document
+    .getElementById(
+      "checkoutContent"
+    )
+    .innerHTML = `
+
+      <h2>
+        Checkout
+      </h2>
+
+      <div
+        id="checkoutMessage"
+        class="message"
+      ></div>
+
+
+      <div class="form-group">
+
+        <label>
+          Guest name
+        </label>
+
+        <input
+          id="guestName"
+          type="text"
+          placeholder="Your name"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Room
+        </label>
+
+        <input
+          id="room"
+          type="text"
+          placeholder="Your room"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Phone number
+        </label>
+
+        <input
+          id="phone"
+          type="tel"
+          placeholder="080..."
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Notes
+        </label>
+
+        <textarea
+          id="notes"
+          placeholder="Any special instructions?"
+        ></textarea>
+
+      </div>
+
+
+      <div class="payment-box">
+
+        <h3>
+          Bank Transfer
+        </h3>
+
+        <div class="payment-line">
+          <strong>Bank:</strong>
+          <span id="bankName">
+            Loading…
+          </span>
+        </div>
+
+        <div class="payment-line">
+          <strong>Account name:</strong>
+          <span id="accountName">
+            Loading…
+          </span>
+        </div>
+
+        <div class="payment-line">
+
+          <strong>
+            Account number:
+          </strong>
+
+          <div class="account-number-row">
+
+            <span
+              id="accountNumber"
+              class="account-number"
+            >
+              Loading…
+            </span>
+
+            <button
+              class="copy-button"
+              onclick="copyAccountNumber()"
+            >
+              Copy
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="payment-note">
+
+          After transferring, tap
+          <strong>
+            Continue to WhatsApp
+          </strong>
+          and send your proof of payment
+          in the chat.
+
+          Payment is confirmed manually.
+
+        </div>
+
+      </div>
+
+
+      <button
+        id="submitOrderButton"
+        class="continue-button"
+        onclick="submitOrder()"
+      >
+        Continue to WhatsApp
+      </button>
+
+
+      <button
+        class="cancel-button"
+        onclick="closeCheckout()"
+      >
+        Cancel
+      </button>
+
+    `;
+
+
+  loadPaymentDetails();
+
+}
+
+
+/*
+==================================================
+FORMATTING
+==================================================
+*/
+
+function money(
+  amount
+) {
+
+  return Number(
+    amount || 0
+  ).toLocaleString(
+    "en-NG",
+    {
+      maximumFractionDigits:
+        0
+    }
+  );
+
+}
+
+
+function escapeHtml(
+  value
+) {
+
+  return String(
+    value || ""
+  )
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+function escapeAttribute(
+  value
+) {
+
+  return String(
+    value || ""
+  )
+
+    .replace(
+      /\\/g,
+      "\\\\"
+    )
+
+    .replace(
+      /'/g,
+      "\\'"
+    );
+
+}
+
+
+/*
+==================================================
+START
+==================================================
+*/
+
+updateCart();
+
+loadWebsite();
+
+</script>
+
+</body>
+</html>
